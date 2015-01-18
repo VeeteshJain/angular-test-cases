@@ -45,6 +45,7 @@ define(['app'], function(app)
                 if(!this.options.isDisabled || (this.options.isDisabled && options.doAction === 'disabled') ){
                     this.$element.toggleClass(this.options.onoffActive, this.options.isActive);
                     this.$element.toggleClass(this.options.onoffInactive, !this.options.isActive);
+                    this.$element.toggleClass('in', this.options.isActive);
                     this.$element.val(this.options.isActive);
                     this.$element.trigger('change.onOffButton');
                 }
@@ -101,7 +102,7 @@ define(['app'], function(app)
         };
         $.fn.onOffButton.Constructor = onOffButton;
         $(document).on('click.onOffButton', '[data-toggle^=onoff]', function (e) {
-            var $onOffButton = $(e.target);
+            var $onOffButton = $(e.currentTarget);
             $onOffButton.onOffButton({'doAction':'toggle'});
         });
     }( jQuery ));

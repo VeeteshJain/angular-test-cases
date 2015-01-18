@@ -3,6 +3,15 @@
 	<p>This is the 'about us' page</p>
 </section>
 <style type="text/css">
+	.on-off-plugin span.on{
+		display: none;
+	}
+	.on-off-plugin.in span.on{
+		display: block;
+	}
+	.on-off-plugin.in span.off{
+		display: none;
+	}
 </style>
 
 <div class="btn-group mytestradios" data-toggle="buttons-radio">
@@ -10,14 +19,10 @@
 	<button type="button" class="btn btn-primary">Middle</button>
 	<button type="button" class="btn btn-primary">Right</button>
 </div>
-
 <button type="button" class="btn init-all">init-all</button>
-
 <button type="button" class="btn disable-by-button">disable-by-button</button>
 <button type="button" class="btn enable-it-by-button">enable-it-by-button</button>
 <button type="button" class="btn toggle-from-outside">toggle-from-outside</button>
-
-
 <table class="table js-field-options" style="width: 200px;">
 	<thead>
 		<tr>
@@ -28,7 +33,10 @@
 	<tbody>
 		<tr>
 			<td>
-				<button type="button" class="btn btn-mini btn-danger" name="is_mandatory" value="false" data-toggle="onoff" data-onoff-default="btn-danger" data-onoff-active="btn-success" data-onoff-inactive="btn-danger" data-onoff-disabled="disabled">is_mandatory</button>
+				<button type="button" class="btn btn-danger on-off-plugin" name="is_mandatory" value="false" data-toggle="onoff" data-onoff-default="btn-danger" data-onoff-active="btn-success" data-onoff-inactive="btn-danger" data-onoff-disabled="disabled">
+					<span class="on">on</span>
+					<span class="off">off</span>
+				</button>
 			</td>
 			<td>
 				<button type="button" class="btn btn-mini btn-danger" name="is_hide" value="false" data-toggle="onoff" data-onoff-default="btn-danger" data-onoff-active="btn-success" data-onoff-inactive="btn-danger" data-onoff-disabled="disabled">is_hide</button>
