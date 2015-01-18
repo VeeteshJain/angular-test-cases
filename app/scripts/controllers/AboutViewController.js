@@ -16,13 +16,38 @@ define(['app'], function(app)
             'init': function(){
                 var data = this.$element.data();
                 this.options = $.extend(this.options, data);
+                this.options.needRefresh = false;
                 this.toggleOnOff({'doAction': 'refresh'});
             },
             'destroy': function(){
                 $(document).off('click.onOffButton', '[data-toggle^=onoff]');
             },
             'toggleOnOff': function(options){
-                var data = this.$element.data();
+                if(this.options.needRefresh){
+                    this.init();
+                }
+                if(options.doAction === 'toggle'){
+                    this.options.isActive = !this.options.isActive;
+                }else if(options.doAction === 'disabled'){
+                    this.options.isActive = false;
+                    this.options.isInactive = !this.options.isActive;
+                    this.options.isDisabled = true;
+                    this.$element.attr({'disabled': 'disabled'});
+                }else if (options.doAction === 'enableIt'){
+                    this.options.isActive = false;
+                    this.options.isInactive = !this.options.isActive;
+                    this.options.isDisabled = false;
+                    this.$element.removeProp('disabled');
+                    this.$element.removeAttr('disabled');
+                }
+                this.$element.toggleClass(this.options.onoffDisabled, this.options.isDisabled);
+                if(!this.options.isDisabled || (this.options.isDisabled && options.doAction === 'disabled') ){
+                    this.$element.toggleClass(this.options.onoffActive, this.options.isActive);
+                    this.$element.toggleClass(this.options.onoffInactive, !this.options.isActive);
+                    this.$element.val(this.options.isActive);
+                    this.$element.trigger('change.onOffButton');
+                }
+                /*var data = this.$element.data();
                 if(options.doAction === 'toggle' && !this.options.isDisabled){
                     this.options.isActive = !this.options.isActive;
                     this.options.isInactive = !this.options.isInactive;
@@ -51,9 +76,7 @@ define(['app'], function(app)
                 }
                 if(data.onoffInactive){
                     this.$element.toggleClass(data.onoffInactive, this.options.isInactive);
-                }
-                this.$element.val(this.options.isActive);
-                this.$element.trigger('change.onOffButton');
+                }*/
             }
         };
         $.fn.onOffButton = function (option) {
@@ -72,7 +95,8 @@ define(['app'], function(app)
         $.fn.onOffButton.defaults = {
             'isActive': false,
             'isInactive': true,
-            'isDisabled': false
+            'isDisabled': false,
+            'needRefresh': true
         };
         $.fn.onOffButton.Constructor = onOffButton;
         $(document).on('click.onOffButton', '[data-toggle^=onoff]', function (e) {
@@ -97,16 +121,11 @@ $(document).on('click', '.toggle-from-outside', function (e) {
     $('.js-field-options button').onOffButton({'doAction':'toggle'});
 });
 
-/*$(document).on('change.onOffButton', '.js-field-options', function (e) {
+$(document).on('change.onOffButton', '.js-field-options', function (e) {
     var $onOffButton = $(e.target);
     console.log(e.target.name+' '+$onOffButton.val());
-});*/
+});
 
-/*$(document).on('setData.onOffButton', function (e) {
-    debugger;
-    var $onOffButton = $(e.target);
-    console.log(e.target.name+' '+$onOffButton.val());
-});*/
 
 app.directive('multichoice',function(){
     debugger;
