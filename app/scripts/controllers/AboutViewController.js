@@ -17,6 +17,7 @@ define(['app'], function(app)
                 var data = this.$element.data();
                 this.options = $.extend(this.options, data);
                 this.options.needRefresh = false;
+                this.$element.addClass(this.options.onoffDefault);
                 this.toggleOnOff({'doAction': 'refresh'});
             },
             'destroy': function(){
