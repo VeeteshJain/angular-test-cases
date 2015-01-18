@@ -1,6 +1,37 @@
 'use strict';
 define(['controllers/HomeViewController'], function(app)
 {
+
+	describe("Included matchers:", function() {
+
+		it("The 'toBe' matcher compares with ===", function() {
+			var a = 12;
+			var b = 12;
+
+			expect(a).toBe(b);
+			//expect(a).not.toBe(null);
+		});
+
+		it('two ', function(){
+			var a = 12;
+			expect(a).toEqual(12);
+		});
+
+		it("The 'toThrow' matcher is for testing if a function throws an exception", function() {
+			var a = 12;
+			var foo = function() {
+				a = 44;
+			}
+
+			expect(a).toBe(12);
+			foo();
+			expect(a).toBe(12);
+			//expect(bar).toThrow();
+		});
+	});
+
+
+
 	describe("The 'HomeViewController'", function()
 	{
 		var $rootScope;
